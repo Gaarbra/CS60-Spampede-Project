@@ -22,7 +22,7 @@ import javax.swing.SwingUtilities;
  */
 public class SpampedeController extends JPanel implements ActionListener, KeyListener, Runnable {
   /** The "view" in MVC. */
-  private SpampedeView view;
+  private final SpampedeView view;
 
   /** The "model" in MVC. */
   public SpampedeModel model;
