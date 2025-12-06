@@ -156,6 +156,7 @@ public class SpampedeController extends JPanel implements ActionListener, KeyLis
         break;
     case RIGHT:
         this.model.setDirectionEast();
+        break;
 
     case AI_MODE:
       this.model.setAIMode();
