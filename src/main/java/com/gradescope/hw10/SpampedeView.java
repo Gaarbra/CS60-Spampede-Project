@@ -32,22 +32,20 @@ class SpampedeView {
   /** The display where the board is drawn. */
   private final Graphics screen;
 
-  // TODO HW #10.0C Add final where appropriate to members below!
-
   /** The width of the display in pixels. */
-  private int width;
+  private final int width;
 
   /** The height of the display in pixels. */
-  private int height;
+  private final int height;
 
   /** The overall game window */
-  private JFrame frame;
+  private final JFrame frame;
 
   /** The off-screen buffer of image */
-  private BufferedImage image;
+  private final BufferedImage image;
 
   /** The panel to display the image */
-  SpampedeImagePanel panel;
+  final SpampedeImagePanel panel;
 
   /** A picture of a can of spam. */
   private static Image imageSpam;

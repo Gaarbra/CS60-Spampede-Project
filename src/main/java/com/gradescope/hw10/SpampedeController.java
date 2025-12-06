@@ -28,10 +28,10 @@ public class SpampedeController extends JPanel implements ActionListener, KeyLis
   public SpampedeModel model;
 
   /** The sound for spam. */
-  public AudioInputStream audioSpam;
+  public final AudioInputStream audioSpam;
   
   /** The sound when the snake eats spam. */
-  public AudioInputStream audioCrunch;
+  public final AudioInputStream audioCrunch;
 
   /* --------------------------------------------------------------- */
   /* Fields and methods are used to implement the Runnable interface */
