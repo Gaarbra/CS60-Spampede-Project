@@ -26,7 +26,7 @@ class SpampedeView {
   /** The board/spampede data being drawn. */
   private SpampedeModel model;
 
-  /** The controller, receiving actions from buttons/menus */
+  /** The controller, receiving actions from buttons/menus. */
   private final SpampedeController controller;
 
   /** The display where the board is drawn. */
@@ -74,10 +74,10 @@ class SpampedeView {
     this.initializeMenu();
     this.initializeImage();
 
-    // Set up the (off-screen) buffer for drawing, named image
-    // image = createImage(Preferences.GAMEBOARDWIDTH, Preferences.GAMEBOARDHEIGHT);
-    this.image = new BufferedImage(Preferences.BOARD_WIDTH, Preferences.BOARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
-    this.screen = this.image.getGraphics(); // screen holds the drawing routines
+    // Set up the (off-screen) buffer for drawing
+    this.image = new BufferedImage(Preferences.BOARD_WIDTH, Preferences.BOARD_HEIGHT,
+        BufferedImage.TYPE_INT_RGB);
+    this.screen = this.image.getGraphics();
     this.panel = new SpampedeImagePanel(this.image);
 
     // Add a central panel which holds the buffer (the game board)
@@ -122,7 +122,6 @@ class SpampedeView {
    * Initializes all menu items.
    */
   private void initializeMenu() {
-    // set up the menu bar
     JMenuBar menuBar = new JMenuBar();
 
     // add a menu to contain items
@@ -158,8 +157,11 @@ class SpampedeView {
     }
   }
 
-  // TODO HW #10.0C Add missing Javadoc!
-
+  /**
+   * Updates this view to use a new model, then refreshes the graphics.
+   *
+   * @param model the updated model
+   */
   public void updateModel(SpampedeModel model) {
     this.model = model;
     this.updateGraphics();
@@ -170,7 +172,7 @@ class SpampedeView {
   /* -------------------- */
 
   /**
-   * Re-draws the board, spam, and snake (but not the buttons).
+   * Re-draws the board, snake, spam, title, and game-over message.
    */
   public void updateGraphics() {
     // Draw the background -- DO NOT REMOVE!
