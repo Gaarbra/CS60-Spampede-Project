@@ -640,7 +640,27 @@ class SpampedeModel {
    * Reverses the snake.
    */
   public void reverseSnake() {
-    // TODO HW #10.2B Implement reverseSnake
+    // 1) Store ref. to the old head
+    BoardCell oldHead = this.getSnakeHead();
+
+    // 2) Reverse the order of cells
+    java.util.Collections.reverse(this.snakeCells);
+    oldHead.becomeBody();
+
+    this.getSnakeHead().becomeHead();
+
+    BoardCell newHead = this.getSnakeHead();
+    BoardCell newNeck = this.getSnakeNeck();
+
+    if (getNorthNeighbor(newNeck) == newHead){
+        this.currentMode = SnakeMode.GOING_NORTH;
+    } else if (getSouthNeighbor(newNeck) == newHead){
+        this.currentMode = SnakeMode.GOING_SOUTH;
+    } else if (getEastNeighbor(newNeck) == newHead){
+        this.currentMode = SnakeMode.GOING_EAST;
+    } else if (getWestNeighbor(newNeck) == newHead){
+        this.currentMode = SnakeMode.GOING_WEST;
+    }
   }
 
   /* ------------------------------------- */
@@ -677,7 +697,35 @@ class SpampedeModel {
     snakeHead.addToSearch();
     cellsToSearch.add(snakeHead);
 
-    // TODO HW #10.2B Update getNextCellFromBFS
+
+    
+    BoardCell spamCell = null;
+
+    //Perform BFS
+    while (!cellsToSearch.isEmpty()){
+        BoardCell current = cellsToSearch.remove();
+
+        //If found spam, store and stop search
+        if (current.isSpam()){
+            spamCell = current;
+            break;
+        }
+
+        //Iterate through neighbors
+        BoardCell[] neighbors = this.getNeighbors(current);
+        for (BoardCell neighbor : neighbors){
+            if (!neighbor.alreadySearched() && !neighbor.isWall() && !neighbor.isBody()){
+                neighbor.addToSearch();
+                neighbor.setParent(current);
+                cellsToSearch.add(neighbor);
+            }
+        }
+    }
+
+    //After BFS, if spam is found, trace back the path
+    if (spamCell != null){
+        return this.getFirstCellInPath(spamCell);
+    }
 
     // if the search fails, just move somewhere
     return this.getRandomNeighboringCell(snakeHead);
@@ -695,8 +743,19 @@ class SpampedeModel {
    *         head
    */
   private BoardCell getFirstCellInPath(BoardCell start) {
-    // TODO HW #10.2B Implement getFirstCellInPath
-    return null; // replace with the desired BoardCell
+    BoardCell current = start;
+    BoardCell snakeHead = this.getSnakeHead();
+
+    // Trace back until parent of current is snake head
+    while (current.getParent() != snakeHead){
+        current = current.getParent();
+
+        //Break if tracing back fails
+        if(current == null){
+            break;
+        }
+    }
+    return current;
   }
 
   /* --------------------------------------------------------------------- */
