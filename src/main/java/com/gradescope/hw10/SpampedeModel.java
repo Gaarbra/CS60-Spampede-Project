@@ -39,8 +39,6 @@ class SpampedeModel {
    */
   private final BoardCell[][] boardCells2D;
 
-  // TODO HW #10.0C Add final where appropriate to members below!
-
   /** The number of non-wall cells in the initial board. */
   private int freeSpots;
 
@@ -54,13 +52,13 @@ class SpampedeModel {
    * A list of (references to) cells that currently contain spam, ordered from
    * oldest (first) to youngest (last).
    */
-  private LinkedList<BoardCell> spamCells;
+  private final LinkedList<BoardCell> spamCells;
 
   /**
    * A list of (references to) the cells that contain the snake. The head is the
    * last element of the list.
    */
-  private LinkedList<BoardCell> snakeCells;
+  private final LinkedList<BoardCell> snakeCells;
 
   /** Whether the game is over. */
   private boolean gameOver;
@@ -508,7 +506,13 @@ class SpampedeModel {
    * SpampedeController or SpampedeView.
    */
 
-  // TODO HW #10.0C Fix Javadoc!
+  /**
+   * Returns the cell directly north of the given cell. Wraps around using modulo
+   * arithmetic.
+   *
+   * @param cell the cell whose northern neighbor is desired
+   * @return the cell north of {@code cell}
+   */
 
   // Returns the cell north of the specified cell, which must not be on the boundary.
   protected BoardCell getNorthNeighbor(BoardCell cell) {
@@ -518,7 +522,12 @@ class SpampedeModel {
     return getCell(newRow, newCol);
   }
 
-  // Returns the cell south of the specified cell, which must not be on the boundary.
+  /**
+   * Returns the cell directly south of the given cell.
+   *
+   * @param cell the cell whose southern neighbor is desired
+   * @return the cell south of {@code cell}
+   */
   protected BoardCell getSouthNeighbor(BoardCell cell) {
     int numRows = getNumRows();
     int newRow = (cell.getRow() + 1) % numRows;
@@ -526,7 +535,13 @@ class SpampedeModel {
     return getCell(newRow, newCol);
   }
 
-  // Returns the cell east of the specified cell, which must not be on the boundary.
+  /**
+   * Returns the cell directly east of the given cell.
+   *
+   * @param cell the cell whose eastern neighbor is desired
+   * @return the cell east of {@code cell}
+   */
+
   protected BoardCell getEastNeighbor(BoardCell cell) {
     int numCols = getNumColumns();
     int newCol = (cell.getColumn() + 1) % numCols;
@@ -534,7 +549,12 @@ class SpampedeModel {
     return getCell(newRow, newCol);
   }
 
-  // Returns the cell west of the specified cell, which must not be on the boundary.
+  /**
+   * Returns the cell directly west of the given cell.
+   *
+   * @param cell the cell whose western neighbor is desired
+   * @return the cell west of {@code cell}
+   */
   protected BoardCell getWestNeighbor(BoardCell cell) {
     int numCols = getNumColumns();
     int newCol = (cell.getColumn() - 1 + numCols) % numCols;
