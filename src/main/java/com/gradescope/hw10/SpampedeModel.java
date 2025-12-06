@@ -248,7 +248,12 @@ class SpampedeModel {
    * @param cell the cell to move the snake forward to
    */
   public void moveSnakeForward(BoardCell cell) {
-    // TODO HW #10.2A Implement moveSnakeForward
+    boolean ateSpam = cell.isSpam();
+    this.updateHead(cell);
+
+    if (!ateSpam){
+        this.removeTail();
+    }
   }
 
   // ---- REMOVE BEG ----
@@ -507,26 +512,34 @@ class SpampedeModel {
 
   // Returns the cell north of the specified cell, which must not be on the boundary.
   protected BoardCell getNorthNeighbor(BoardCell cell) {
-    // TODO HW #10.2A Implement getNorthNeighbor
-    return null; // replace with the desired BoardCell
+    int numRows = getNumRows();
+    int newRow = (cell.getRow() - 1 + numRows) % numRows;
+    int newCol = cell.getColumn();
+    return getCell(newRow, newCol);
   }
 
   // Returns the cell south of the specified cell, which must not be on the boundary.
   protected BoardCell getSouthNeighbor(BoardCell cell) {
-    // TODO HW #10.2A Implement getSouthNeighbor
-    return null; // replace with the desired BoardCell
+    int numRows = getNumRows();
+    int newRow = (cell.getRow() + 1) % numRows;
+    int newCol = cell.getColumn();
+    return getCell(newRow, newCol);
   }
 
   // Returns the cell east of the specified cell, which must not be on the boundary.
   protected BoardCell getEastNeighbor(BoardCell cell) {
-    // TODO HW #10.2A Implement getEastNeighbor
-    return null; // replace with the desired BoardCell
+    int numCols = getNumColumns();
+    int newCol = (cell.getColumn() + 1) % numCols;
+    int newRow = cell.getRow();
+    return getCell(newRow, newCol);
   }
 
   // Returns the cell west of the specified cell, which must not be on the boundary.
   protected BoardCell getWestNeighbor(BoardCell cell) {
-    // TODO HW #10.2A Implement getWestNeighbor
-    return null; // replace with the desired BoardCell
+    int numCols = getNumColumns();
+    int newCol = (cell.getColumn() - 1 + numCols) % numCols;
+    int newRow= cell.getRow();
+    return getCell(newRow, newCol);
   }
 
   /**
@@ -538,8 +551,22 @@ class SpampedeModel {
    *         current direction of travel
    */
   protected BoardCell getNextCellInDir() {
-    // TODO HW #10.2A Implement getNextCellInDir
-    return null;
+    BoardCell head = this.getSnakeHead();
+    
+    switch (this.currentMode){
+
+        case GOING_NORTH:
+            return getNorthNeighbor(head);
+        case GOING_SOUTH:
+            return getSouthNeighbor(head);
+        case GOING_EAST:
+            return getEastNeighbor(head);
+        case GOING_WEST:
+            return getWestNeighbor(head);
+        default:
+            throw new IllegalStateException("Error:" + this.currentMode);
+
+    }
   }
 
   /**

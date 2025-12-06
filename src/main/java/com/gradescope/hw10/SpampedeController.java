@@ -145,7 +145,17 @@ public class SpampedeController extends JPanel implements ActionListener, KeyLis
       this.model.reverseSnake();
       break;
 
-    // TODO HW #10.2A Update keyPressed
+    case UP:
+        this.model.setDirectionNorth();
+        break;
+    case DOWN:
+        this.model.setDirectionSouth();
+        break;
+    case LEFT:
+        this.model.setDirectionWest();
+        break;
+    case RIGHT:
+        this.model.setDirectionEast();
 
     case AI_MODE:
       this.model.setAIMode();
